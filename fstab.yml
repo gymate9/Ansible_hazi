@@ -1,0 +1,16 @@
+- name: mount
+  hosts: all
+  vars:
+    ansible_host: root
+    nfs_shared_directory: /data/comp/ 
+
+  tasks:
+
+    - name: Mount NFS share
+      mount:
+        path: /data/
+	src: "{{ ansible_host }}:{{ nfs_shared_directory }}"
+	fstype: nfs
+	opts: defaults
+	state: mounted
+	fstab: true
