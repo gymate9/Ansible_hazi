@@ -1,0 +1,8 @@
+nfs_share_dir: /data/comp/
+nfs_client: 172.25.250.10
+
+server: 172.25.250.9
+to_mount: /data
+
+
+new_password: "alma"
