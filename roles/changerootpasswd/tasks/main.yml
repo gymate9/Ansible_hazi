@@ -1,0 +1,11 @@
+    - name: Get users
+      shell: "getent passwd | grep -v '/bin/false' | grep -vE '^root:' | cut -d: -f1"
+      changed_when: false
+      register: non_root_users
+
+    - name: Change passwd
+      user:
+        name: "{{ item }}"
+        password: "{{ new_password | password_hash('sha512') }}"
+        update_password: on_create
+      with_items: "{{ non_root_users.stdout_lines }}"

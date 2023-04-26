@@ -1,0 +1,22 @@
+    - name: Create directory
+      file:
+        path: "{{ to_mount }}"
+        state: directory
+        mode: '0755'
+     
+     
+    - name: NFS mount
+      mount:
+        path: "{{ to_mount }}"
+        src: "{{ server }}:{{ nfs_share_dir }}"
+        fstype: nfs
+        opts: defaults
+        state: mounted
+    
+     
+
+    - name: Add to /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        line: "{{ server }}:{{ nfs_share_dir }} {{to_mount }} nfs defaults 0 0"
+      
